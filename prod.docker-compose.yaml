@@ -102,6 +102,7 @@ services:
     image: paulborielabs/webserver:prod
     container_name: web
     volumes:
+      - nginx_secrets:/etc/letsencrypt # to save certs accross restart
       - ./nginx-templates/prod:/etc/nginx/templates #copy prod nginx conf templates here
     ports:
       - "80:80"
@@ -119,6 +120,7 @@ services:
       - REVERB_HOST=reverb
       - REVERB_PORT=8080
       - DEBUG=1     
+
   worker:
     image: paulborielabs/worker:latest
     deploy:
@@ -266,3 +268,4 @@ volumes:
   redis-data:
   minio-data:
   mysql-data:
+  nginx_secrets:

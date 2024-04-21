@@ -100,6 +100,7 @@ services:
     image: paulborielabs/webserver:local
     container_name: web
     volumes:
+      - nginx_secrets:/etc/letsencrypt
       - ./nginx-templates/local:/etc/nginx/templates
     ports:
       - "80:80"
@@ -264,3 +265,4 @@ volumes:
   redis-data:
   minio-data:
   mysql-data:
+  nginx_secrets:
