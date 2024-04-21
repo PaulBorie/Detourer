@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -e
+
+initialStuff() {
+    php artisan migrate --force; \
+    php artisan optimize:clear; \
+    php artisan event:cache; \
+    php artisan config:cache; \
+    php artisan route:cache; 
+}
+
+echo "Octane Server: $octane_server"
+initialStuff
+exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.frankenphp.conf
+
+

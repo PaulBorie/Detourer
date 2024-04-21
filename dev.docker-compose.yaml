@@ -1,0 +1,109 @@
+version: '3'
+
+services:
+
+  db:
+    image: mysql:8.0.33
+    container_name: db
+    restart: always
+    ports:
+      - '6666:3306'
+    environment:
+      MYSQL_DATABASE: rembg
+      MYSQL_ROOT_PASSWORD: nfBZVdD95BtkmmWCH8WS5U5wxxb6NEHLLpSOGU3akmiDUD3Jl
+      MYSQL_USER: toto
+      MYSQL_PASSWORD: toto
+      SERVICE_NAME: mysql
+    healthcheck:
+            test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+            timeout: 20s
+            retries: 10
+    volumes:
+      - mysql-data:/var/lib/mysql/
+  
+  reverb:
+    image: paulborielabs/reverb:latest
+    container_name: reverb
+    ports:
+      - '80:8080'
+    restart: always
+    environment:
+      - REVERB_APP_ID=355186
+      - REVERB_APP_KEY=upbr1wajzso9r67tgomw
+      - REVERB_APP_SECRET=lpzvjrwehoknkb68k25f
+
+  minio:
+    image: quay.io/minio/minio:latest
+    container_name: minio
+    restart: always
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio-data:/data
+    environment:
+      MINIO_ROOT_USER: toto
+      MINIO_ROOT_PASSWORD: totototototo
+    command: server /data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  minio-mc:
+    image: quay.io/minio/mc:latest
+    container_name: mc
+    volumes:
+      - ./minio/policies/laravel_policy.json:/etc/mc/laravel_policy.json
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+        echo Adding MinIO host...;
+        mc alias set rembg http://minio:9000 toto totototototo;
+        echo Creating bucket...;
+        mc mb rembg/images;
+        echo Adding user...;
+        mc admin user add rembg laravel totototototo;
+        echo Creating Policy from the file...;
+        mc admin policy create rembg readwriteimages /etc/mc/laravel_policy.json
+        echo Attaching policy to user previously created...;
+        mc admin policy attach rembg readwriteimages --user laravel
+        echo Adding service account for user previously created...;
+        mc admin user svcacct add rembg laravel --access-key e4d98a7a6409001dbd91 --secret-key c66c14fdd02b986073f4
+        exit 0;
+      "
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: redis
+    restart: always
+    command: --appendonly yes --save 20 1 --loglevel warning
+    ports:
+      - '6379:6379'
+    volumes:  
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+      - HTTP_USER=toto
+      - HTTP_PASSWORD=toto
+    ports:
+      - 8081:8081
+    depends_on:
+      - redis
+
+
+volumes:
+  redis-data:
+  minio-data:
+  mysql-data:
