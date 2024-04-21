@@ -22,7 +22,7 @@ services:
       - mysql-data:/var/lib/mysql/
   
   rembg:
-    image: paulborielabs/rembg:local
+    image: paulborielabs/rembg:prod
     container_name: rembg
     restart: always
     expose: 
@@ -34,7 +34,7 @@ services:
       - APP_DEBUG=false # do not forget to set to false
       - APP_KEY=${APP_KEY}
       - APP_TIMEZONE=UTC
-      - APP_URL=http://localhost:8000 # check where it used in the app
+      - APP_URL=https://${DOMAIN_NAME} # check where it used in the app
       - APP_LOCALE=en
       - APP_FALLBACK_LOCALE=en
       - APP_FAKER_LOCALE=en_US
@@ -62,7 +62,7 @@ services:
       # Cache
       - CACHE_STORE=database
       # Minio (s3) variables
-      - MINIO_ENDPOINT_TEMPORARYURLS=http://minio.${DOMAIN_NAME} # must be internet accessible
+      - MINIO_ENDPOINT_TEMPORARYURLS=https://minio.${DOMAIN_NAME} # must be internet accessible
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - AWS_BUCKET=images
@@ -93,12 +93,13 @@ services:
       - REMBG_JOB_WINDOW=60 # seconds
       - REMBG_PATH=/home/worker/.local/bin/rembg
       - REMBG_MODEL_PATH=/home/worker/.u2net/u2net.onnx
+      - ASSET_URL=https://${DOMAIN_NAME}
     depends_on:
       db:
         condition: service_healthy
 
   web:
-    image: paulborielabs/webserver:local
+    image: paulborielabs/webserver:prod
     container_name: web
     volumes:
       - ./nginx-templates/prod:/etc/nginx/templates #copy prod nginx conf templates here
@@ -117,7 +118,7 @@ services:
       - MINIO_ADMIN_PORT=9001
       - REVERB_HOST=reverb
       - REVERB_PORT=8080
-     
+      - DEBUG=1     
   worker:
     image: paulborielabs/worker:latest
     deploy:
@@ -157,7 +158,7 @@ services:
       # Cache
       - CACHE_STORE=database
       # Minio (s3) variables
-      - MINIO_ENDPOINT_TEMPORARYURLS=http://minio.${DOMAIN_NAME} # must be internet accessible
+      - MINIO_ENDPOINT_TEMPORARYURLS=https://minio.${DOMAIN_NAME} # must be internet accessible
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - AWS_BUCKET=images
