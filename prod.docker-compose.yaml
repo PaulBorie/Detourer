@@ -34,7 +34,7 @@ services:
       - APP_DEBUG=false # do not forget to set to false
       - APP_KEY=${APP_KEY}
       - APP_TIMEZONE=UTC
-      - APP_URL=https://${DOMAIN_NAME} # check where it used in the app
+      - APP_URL=https://${DOMAIN_NAME}
       - APP_LOCALE=en
       - APP_FALLBACK_LOCALE=en
       - APP_FAKER_LOCALE=en_US
@@ -130,7 +130,6 @@ services:
       - APP_DEBUG=false # do not forget to set to false
       - APP_KEY=${APP_KEY}
       - APP_TIMEZONE=UTC
-      - APP_URL=http://localhost:8000 # check where it used in the app
       - APP_LOCALE=en
       - APP_FALLBACK_LOCALE=en
       - APP_FAKER_LOCALE=en_US

@@ -25,7 +25,7 @@
                 </a>
             </li>
             <li>
-                <a href="https://github.com/PaulBorie/ai-background-remover" class="cursor-pointer">
+                <a href="https://github.com/PaulBorie/Detourer" class="cursor-pointer">
                     <svg class="w-9 h-9  fill-current text-white hover:text-rose-500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1080" height="1080" viewBox="0 0 1080 1080" xml:space="preserve">
                         <g transform="matrix(1 0 0 1 540 540)" id="4c2267ff-608c-4f44-b014-d7a31f0fae06">
                             <rect style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4;  fill-rule: nonzero; opacity: 1; visibility: hidden;" vector-effect="non-scaling-stroke"  x="-540" y="-540" rx="0" ry="0" width="1080" height="1080" />
