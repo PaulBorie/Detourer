@@ -6,13 +6,13 @@
         <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
             <li> 
                 <div class="group">
-                <a href="https://www.linkedin.com/in/paul-borie-7b989b245/" class="group-hover:underline ">Made with</a>
+                <a href="https://www.linkedin.com/in/paul-borie-7b989b245/" target="_blank" rel="noopener noreferrer" class="group-hover:underline ">Made with</a>
                  <span class="mx-1"> ❤️ </span>
-                <a href="https://www.linkedin.com/in/paul-borie-7b989b245/" class="group-hover:underline me-4 md:me-6">by Paul Borie</a>
+                <a href="https://www.linkedin.com/in/paul-borie-7b989b245/" target="_blank" rel="noopener noreferrer" class="group-hover:underline me-4 md:me-6">by Paul Borie</a>
                 </div>
             </li>
             <li>
-                <a href="https://www.linkedin.com/in/paul-borie-7b989b245/" class="cursor-pointer">
+                <a href="https://www.linkedin.com/in/paul-borie-7b989b245/" target="_blank" rel="noopener noreferrer" class="cursor-pointer">
                     <svg class="w-11 h-11 fill-current text-white -mb-[4px] hover:text-linkedin-100"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xml:space="preserve" viewBox="0 0 1080 1080">
                         <g transform="matrix(1 0 0 1 540 540)" id="a92464e6-72aa-4f48-9323-cd7824a6ab5a">
                             <rect style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill-rule: nonzero; opacity: 1; visibility: hidden;" vector-effect="non-scaling-stroke" x="-540" y="-540" rx="0" ry="0" width="1080" height="1080"/>
@@ -25,7 +25,7 @@
                 </a>
             </li>
             <li>
-                <a href="https://github.com/PaulBorie/Detourer" class="cursor-pointer">
+                <a href="https://github.com/PaulBorie/Detourer" target="_blank" rel="noopener noreferrer" class="cursor-pointer">
                     <svg class="w-9 h-9  fill-current text-white hover:text-rose-500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1080" height="1080" viewBox="0 0 1080 1080" xml:space="preserve">
                         <g transform="matrix(1 0 0 1 540 540)" id="4c2267ff-608c-4f44-b014-d7a31f0fae06">
                             <rect style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4;  fill-rule: nonzero; opacity: 1; visibility: hidden;" vector-effect="non-scaling-stroke"  x="-540" y="-540" rx="0" ry="0" width="1080" height="1080" />
