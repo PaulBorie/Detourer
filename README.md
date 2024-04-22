@@ -2,10 +2,10 @@
   <foreignObject width="100%" height="100%">
       <div xmlns="http://www.w3.org/1999/xhtml">
          <style>
-         .divstyle {
-            display: flex;
-            align-items: center;
-         }
+            .divstyle {
+               display: flex;
+               align-items: center;
+            }
          </style>
          <div style="divstyle">
             <img src="logo/detourer-logo.png" style="margin-right: 15px;" alt="Project Logo" height="50" width="50"/>
