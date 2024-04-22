@@ -152,11 +152,11 @@ docker push "paulborielabs/webserver:$ENVIRONMENT"
 
 if [ "$REBUILD_WORKER" = "y" ]; then
     # Build and push the worker
-    docker buildx build -t paulborielabs/worker:latest -f Worker.Dockerfile .
-    docker push paulborielabs/worker:latest
+    docker buildx build -t "paulborielabs/worker:$ENVIRONMENT" -f Worker.Dockerfile .
+    docker push "paulborielabs/worker:$ENVIRONMENT"
 fi
 
-docker-compose --env-file "$ENV_FILE" -f "$ENVIRONMENT.docker-compose.yaml" pull
-docker-compose --env-file "$ENV_FILE" -f "$ENVIRONMENT.docker-compose.yaml" up -d
-
-echo "App successfully installed for domain name $DOMAIN_NAME for $ENVIRONMENT environment."
+docker-compose --env-file "$ENV_FILE" -f "$ENVIRONMENT.docker-compose.yaml" pull && \
+docker-compose --env-file "$ENV_FILE" -f "$ENVIRONMENT.docker-compose.yaml" up -d && \
+echo "App successfully installed for domain name $DOMAIN_NAME for $ENVIRONMENT environment." || \
+echo "Installation failed."

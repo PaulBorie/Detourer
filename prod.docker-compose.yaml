@@ -86,7 +86,7 @@ services:
       # Octane
       - OCTANE_SERVER=frankenphp
       # Rembg variables
-      - REMBG_PROCESS_TIMEOUT=40
+      - REMBG_PROCESS_TIMEOUT=25
       - REMBG_JOB_RETRIES=2
       - MAX_IMAGE_SIZE=50000 #50Mo
       - MAX_REMBG_JOB_PER_WINDOW=6
@@ -122,7 +122,7 @@ services:
       - DEBUG=1     
 
   worker:
-    image: paulborielabs/worker:latest
+    image: paulborielabs/worker:prod
     deploy:
       replicas: ${NB_WORKERS}
     restart: always
@@ -183,7 +183,7 @@ services:
       # Octane
       - OCTANE_SERVER=frankenphp
       # Rembg variables
-      - REMBG_PROCESS_TIMEOUT=40
+      - REMBG_PROCESS_TIMEOUT=25
       - REMBG_JOB_RETRIES=2
       - MAX_IMAGE_SIZE=50000 #50Mo
       - MAX_REMBG_JOB_PER_WINDOW=6
