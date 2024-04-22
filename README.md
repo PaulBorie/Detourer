@@ -1,7 +1,20 @@
-<div style="display: flex; align-items: center;">
-    <img src="logo/detourer-logo.png" style="margin-right: 15px;" alt="Project Logo" height="50" width="50"/>
-    <h1 style="margin-top: 20px;">Detourer</h1>
-</div>
+<svg fill="none" viewBox="0 0 600 300" width="600" height="300" xmlns="http://www.w3.org/2000/svg">
+  <foreignObject width="100%" height="100%">
+      <div xmlns="http://www.w3.org/1999/xhtml">
+         <style>
+         .divstyle {
+            display: flex;
+            align-items: center;
+         }
+         </style>
+         <div style="divstyle">
+            <img src="logo/detourer-logo.png" style="margin-right: 15px;" alt="Project Logo" height="50" width="50"/>
+            <h1 style="margin-top: 20px;">Detourer</h1>
+         </div>
+      </div>
+  </foreignObject>
+</svg>
+
 
 You can visit the live project [here](https://detourer.io).
 
