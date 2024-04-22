@@ -1,7 +1,11 @@
-# Detourer
+<div style="display: flex; align-items: center;">
+    <img src="logo/detourer-logo.png" style="margin-right: 15px;" alt="Project Logo" height="50" width="50"/>
+    <h1 style="margin-top: 20px;">Detourer</h1>
+</div>
+
+You can visit the live project [here](https://detourer.io).
 
 ## Architecture
-
 
 ## Dev locally
 
@@ -53,7 +57,7 @@ sudo ./install_or_update.sh
 
 ## Deploy in a live server for production
 
-1. Buy a VPS server with sufficiant RAM and CPU (at least 8GO RAM and 8 cores CPU) 
+1. Buy a VPS server with sufficiant RAM and CPU (at least 4GO RAM and 2 cores CPU) 
 2. Buy a domain name `yourdomain` 
 3. Manage DNS records of `yourdomain` to point to your VPS ip address :
    - `yourdomain` -> ip address
@@ -66,16 +70,17 @@ sudo ./install_or_update.sh
 ```
 
 4. Choose `production` when environment is prompted.
-5.  Choose the `number of workers` that will process the Background Removal tasks.
-6. You can choose either or not to build the `worker` image. It does not depend on `domain name` and it takes a long time to build (it needs to download AI models) so you can skip the build if you did not change the `worker` code after the last `worker` build. 
-7. Browse `http://yourdomain.com`. 
+5. You can choose either or not to build the `worker` image. It does not depend on `domain name` and it takes a long time to build (it needs to download AI models) so you can skip the build if you did not change the `worker` code after the last `worker` build. 
+6. Browse `http://yourdomain.com`. 
    
 ## TODO
 
 - SEO optimization with some Laravel Package maybe ? 
 - Disable Session cookie for unauthenticated users (the app does not track user) so they are useless. Then it will allow to **cache** the home page at nginx level or Cache it using a CDN. It will improve home page response time which is good for SEO. 
 - Architecture Schema. 
-- Create Kubernetes manifests and a Helm package to allow autoscaling horizontally in a cluster of nodes.
+- Video support
+- build a CI/CD pipeline for delivering new features faster
+- Create Kubernetes manifests and a Helm package to allow autoscaling horizontally in a cluster of nodes or maybe use Swarm ? 
 
 
 

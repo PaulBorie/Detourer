@@ -53,3 +53,4 @@ install_or_update.sh
 build.sh
 update.sh
 minio/
+logo/
