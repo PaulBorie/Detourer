@@ -63,4 +63,3 @@ RUN rm -rf deployment/
 
 
 ENTRYPOINT ["php", "artisan", "queue:work"]
-

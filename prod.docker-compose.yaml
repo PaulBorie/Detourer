@@ -79,7 +79,7 @@ services:
       - BROADCAST_CONNECTION=reverb
       - REVERB_APP_ID=${REVERB_APP_ID}
       - REVERB_APP_KEY=${REVERB_APP_KEY}
-      - REVERB_APP_SECRET={REVERB_APP_SECRET}
+      - REVERB_APP_SECRET=${REVERB_APP_SECRET}
       - REVERB_HOST="reverb"
       - REVERB_PORT=8080
       - REVERB_SCHEME=http
@@ -88,7 +88,7 @@ services:
       # Rembg variables
       - REMBG_PROCESS_TIMEOUT=25
       - REMBG_JOB_RETRIES=2
-      - MAX_IMAGE_SIZE=50000 #50Mo
+      - MAX_IMAGE_SIZE=102400 #100Mo
       - MAX_REMBG_JOB_PER_WINDOW=6
       - REMBG_JOB_WINDOW=60 # seconds
       - REMBG_PATH=/home/worker/.local/bin/rembg
@@ -185,7 +185,7 @@ services:
       # Rembg variables
       - REMBG_PROCESS_TIMEOUT=25
       - REMBG_JOB_RETRIES=2
-      - MAX_IMAGE_SIZE=50000 #50Mo
+      - MAX_IMAGE_SIZE=102400 #100Mo
       - MAX_REMBG_JOB_PER_WINDOW=6
       - REMBG_JOB_WINDOW=60 # seconds
       - REMBG_PATH=/home/worker/.local/bin/rembg

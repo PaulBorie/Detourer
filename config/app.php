@@ -125,7 +125,7 @@ return [
 
     'rembg_process_timeout' => (int) env('REMBG_PROCESS_TIMEOUT', 15),
     'rembg_job_retries' => (int) env('REMBG_JOB_RETRIES', 2),
-    'max_image_size' => env('MAX_IMAGE_SIZE', 50000), //set to 50Mo. It is also needed to set upload_max_filesize = 50M and post_max_size = 50M in php.ini during deployment
+    'max_image_size' => env('MAX_IMAGE_SIZE', 102400), //set to 50Mo. It is also needed to set upload_max_filesize = 50M and post_max_size = 50M in php.ini during deployment
     'max_rembg_job_per_window' => (int) env('MAX_REMBG_JOB_PER_WINDOW', 5),
     'rembg_job_window' => (int) env('REMBG_JOB_WINDOW', 60), //in seconds
     'rembg_path' => env('REMBG_PATH', 'rembg'),

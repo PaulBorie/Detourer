@@ -122,7 +122,7 @@ class RemoveBackgroundJob implements ShouldQueue
                 $this->fail(new RemoveBackgroundJobFailureException($process->getErrorOutput(), 500, null));
             } else {
                 Storage::disk('s3')->put($modifiedImageFilename, $process->getOutput());
-                $temporaryUrl = Storage::disk('minio-temporaryurls')->temporaryUrl($modifiedImageFilename, now()->addMinutes(20));
+                $temporaryUrl = Storage::disk('minio-temporaryurls')->temporaryUrl($modifiedImageFilename, now()->addMinutes(40));
                 $this->removeBackgroundTask->update([
                     'modifiedImageExtension' => 'png',
                     'modifiedImageFilename' => $modifiedImageFilename,

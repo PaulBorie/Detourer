@@ -97,7 +97,7 @@ x-on:livewire-upload-start="taskProcessing = true"
                         </div>
                     @endif
                     <!-- end download button-->
-                    <input x-bind:disabled="fileSelected" x-on:change="fileSelected = true" class="hidden" id="dropzone-file" type="file" wire:model="image"></input>   
+                    <input x-bind:disabled="fileSelected" x-on:change="fileSelected = true" class="hidden" id="dropzone-file" type="file" wire:model="image" enctype="multipart/form-data"></input>   
                 </label>
                 <!-- end upload image -->     
             </div>
@@ -130,7 +130,7 @@ x-on:livewire-upload-start="taskProcessing = true"
                                     // Process the first file and break out of the loop
                                     break;
                                 } else {
-                                    $wire.dispatch('removeBackgroundTaskFailed',  { exceptionMessage: "Make sure it has an appropriate image format (jpeg,png,jpg,webp,bmp) and that it does not exceed 50mo.", exceptionTitle: "Image upload Failure" });
+                                    $wire.dispatch('removeBackgroundTaskFailed',  { exceptionMessage: "Make sure it has an appropriate image format (jpeg,png,jpg,webp,bmp) and that it does not exceed 100 Mo.", exceptionTitle: "Image upload Failure" });
                                     return;
                                 }
                             }

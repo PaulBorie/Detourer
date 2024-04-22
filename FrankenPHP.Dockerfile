@@ -137,10 +137,8 @@ RUN mkdir -p \
 
 COPY --chown=${USER}:${USER} deployment/octane/FrankenPHP/supervisord.frankenphp.conf /etc/supervisor/conf.d/
 COPY --chown=${USER}:${USER} deployment/start-container /usr/local/bin/start-container
-COPY --chown=${USER}:${USER} deployment/php.ini ${PHP_INI_DIR}/conf.d/99-octane.ini
-
 # FrankenPHP embedded PHP configuration
-COPY --chown=${USER}:${USER} deployment/php.ini /lib/php.ini
+COPY --chown=${USER}:${USER} deployment/php.ini "$PHP_INI_DIR/php.ini"
 
 RUN composer install \
     --classmap-authoritative \

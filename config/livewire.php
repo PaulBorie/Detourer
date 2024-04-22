@@ -65,7 +65,7 @@ return [
 
     'temporary_file_upload' => [
         'disk' => 'local',        // Example: 'local', 's3'              | Default: 'default'
-        'rules' => 'file|mimes:jpg,jpeg,png,bmp,webp|max:' . env('MAX_IMAGE_SIZE', 50000), //set to 50Mo. It is also needed to set upload_max_filesize = 50M and post_max_size = 50M in php.ini during deployment
+        'rules' => 'file|mimes:jpg,jpeg,png,bmp,webp|max:' . env('MAX_IMAGE_SIZE', 102400), //set to 50Mo. It is also needed to set upload_max_filesize = 50M and post_max_size = 50M in php.ini during deployment
         'middleware' => null,  // Example: 'throttle:5,1'             | Default: 'throttle:60,1'
         'preview_mimes' => ['png', 'gif', 'bmp', 'svg', 'jpg', 'jpeg', 'webp'],
         'max_upload_time' => 5, // Max duration (in minutes) before an upload is invalidated...

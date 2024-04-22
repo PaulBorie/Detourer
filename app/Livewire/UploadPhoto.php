@@ -3,7 +3,6 @@
 namespace App\Livewire;
 
 use Exception;
-use ReflectionClass;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -11,11 +10,9 @@ use Livewire\Attributes\On;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Locked;
 use App\Jobs\RemoveBackgroundJob;
-use Illuminate\Support\Facades\Log;
 use App\Models\RemoveBackgroundTask;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 
@@ -41,16 +38,17 @@ class UploadPhoto extends Component
         if (!$this->isProcessingTask) {
             try {
                 $this->validate(
-                    ['image' => 'required|image|mimes:jpeg,png,jpg,webp,bmp|max:' . Config::get('app.max_image_size')] # 50Mo it is also needed to set this to php.ini during deployment
+                    ['image' => 'required|file|mimes:jpeg,png,jpg,webp,bmp|max:' . Config::get('app.max_image_size')] # 50Mo it is also needed to set this to php.ini during deployment
                 );
             } catch(ValidationException $e) {
+                $this->image->delete();
                 $this->dispatch('notify', ['message' => $e->getMessage(), 'title' => 'Image Upload Failure', 'type' => 'error']);
                 return;
             }
             try {
                 $this->isProcessingTask = true;
                 $filename =  $this->image->store('original', 's3');
-                $temporaryUrl = Storage::disk('minio-temporaryurls')->temporaryUrl($filename, now()->addMinutes(20));
+                $temporaryUrl = Storage::disk('minio-temporaryurls')->temporaryUrl($filename, now()->addMinutes(40));
 
                 $task = RemoveBackgroundTask::create([
                     'sessionId' => $request->session()->getId(),
@@ -68,7 +66,10 @@ class UploadPhoto extends Component
                 $this->task = $task;
                 $this->dispatch('task:created', $task->uuid);
                 RemoveBackgroundJob::dispatch($task);
+
             } catch (Exception $e) {
+
+                $this->image->delete();
                 $this->dispatch('notify', ['message' => 'Unexpected file upload error', 'title' => 'Image Upload Failure', 'type' => 'error']);
             }
             
@@ -95,8 +96,8 @@ class UploadPhoto extends Component
     }
 
     #[On('upload:errored')]
-    public function uploadErrored() { 
-        $this->dispatch('notify', ['message' => 'Make sure it has an appropriate image format (jpeg,png,jpg,webp,bmp) and that it does not exceed 50mo', 'title' => 'Image upload Failure', 'type' => 'error']);
+    public function uploadErrored() {        
+        $this->dispatch('notify', ['message' => 'Make sure it has an appropriate image format (jpeg,png,jpg,webp,bmp) and that it does not exceed 100 Mo', 'title' => 'Image upload Failure', 'type' => 'error']);
         $this->reset('task');
         $this->reset('image');
         $this->isProcessingTask = false;

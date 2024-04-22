@@ -31,7 +31,7 @@ services:
       - WITH_SCHEDULER=true
       - APP_NAME=rembg
       - APP_ENV=local
-      - APP_DEBUG=false # do not forget to set to false
+      - APP_DEBUG=true # do not forget to set to false
       - APP_KEY=${APP_KEY}
       - APP_TIMEZONE=UTC
       - APP_LOCALE=en
@@ -78,16 +78,18 @@ services:
       - BROADCAST_CONNECTION=reverb
       - REVERB_APP_ID=${REVERB_APP_ID}
       - REVERB_APP_KEY=${REVERB_APP_KEY}
-      - REVERB_APP_SECRET={REVERB_APP_SECRET}
+      - REVERB_APP_SECRET=${REVERB_APP_SECRET}
       - REVERB_HOST="reverb"
       - REVERB_PORT=8080
       - REVERB_SCHEME=http
       # Octane
       - OCTANE_SERVER=frankenphp
+      # Filesystem
+      - FILESYSTEM_DISK=local
       # Rembg variables
       - REMBG_PROCESS_TIMEOUT=25
       - REMBG_JOB_RETRIES=2
-      - MAX_IMAGE_SIZE=50000 #50Mo
+      - MAX_IMAGE_SIZE=102400 #100Mo
       - MAX_REMBG_JOB_PER_WINDOW=6
       - REMBG_JOB_WINDOW=60 # seconds
       - REMBG_PATH=/home/worker/.local/bin/rembg
@@ -179,10 +181,12 @@ services:
       - REVERB_SCHEME=http
       # Octane
       - OCTANE_SERVER=frankenphp
+      # Filesystem
+      - FILESYSTEM_DISK=local
       # Rembg variables
       - REMBG_PROCESS_TIMEOUT=25
       - REMBG_JOB_RETRIES=2
-      - MAX_IMAGE_SIZE=50000 #50Mo
+      - MAX_IMAGE_SIZE=102400 #100Mo
       - MAX_REMBG_JOB_PER_WINDOW=6
       - REMBG_JOB_WINDOW=60 # seconds
       - REMBG_PATH=/home/worker/.local/bin/rembg
