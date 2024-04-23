@@ -60,6 +60,7 @@ jobs:
           script: |
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/rembg:prod
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/webserver:prod
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/worker:prod
             cd /home/${{ secrets.SSH_USER }}/Detourer
             docker compose --env-file /var/lib/rembg/prod.env -f prod.docker-compose.yaml up -d
 
