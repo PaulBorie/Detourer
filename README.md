@@ -39,7 +39,7 @@ npm run dev
 php artisan queue:work
 ```
 
-6. Browse `http://localhost:8000`
+6. Browse `https://localhost:8000`
 
 All the configuration variables used in the app are in the file `.env` at the root of the project. 
 
@@ -70,15 +70,41 @@ sudo ./install_or_update.sh
 
 4. Choose `production` when environment is prompted.
 5. You can choose either or not to build the `worker` image. It does not depend on `domain name` and it takes a long time to build (it needs to download AI models) so you can skip the build if you did not change the `worker` code after the last `worker` build. 
-6. Browse `http://yourdomain.com`. 
-   
+6. Browse `https://yourdomain.com`. 
+
+## CI/CD Pipeline
+
+A **CI/CD** pipeline has been created thanks tot Github Actions. On new `github release` the 3 images: `rembg`, `webserver` and `worker` are build and pusehd to my Docker Hub registery. Then It connects to my **VPS** through `ssh` pull the new docker images and tells `docker compose` to recreate the containers with the new images. The CI/CD yaml file is located at `.github/workflows/deploy.yaml`.
+
+### Fire the CI/CD pipeline
+
+```bash
+gh release create <tag_name> --title "<release_title>" --notes "<release_notes>"
+```
+**Example:** 
+
+```bash
+gh release create v1.0.0 --title "First Release" --notes "a Handy app to automtically detect and remove background from images"
+```
+### Test the CI/CD pipeline locally
+
+- Use `act` command. It will use the secret file: `.secrets` to fill the secrets in the `deploy.yaml` manifest.
+
+```bash
+act
+```
+- Test a specific Job
+
+```bash
+act -j Build
+```
+
 ## TODO
 
 - SEO optimization with some Laravel Package maybe ? 
 - Disable Session cookie for unauthenticated users (the app does not track user) so they are useless. Then it will allow to **cache** the home page at nginx level or Cache it using a CDN. It will improve home page response time which is good for SEO. 
 - Architecture Schema. 
 - Video support
-- build a CI/CD pipeline for delivering new features faster
 - Create Kubernetes manifests and a Helm package to allow autoscaling horizontally in a cluster of nodes or maybe use Swarm ? 
 
 

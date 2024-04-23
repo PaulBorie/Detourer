@@ -55,3 +55,4 @@ update.sh
 minio/
 logo/
 LICENSE
+.secrets
