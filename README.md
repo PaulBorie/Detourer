@@ -96,7 +96,7 @@ act
 - Test a specific Job
 
 ```bash
-act -j Build
+act -j build
 ```
 
 ## TODO
