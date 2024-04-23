@@ -47,8 +47,9 @@ jobs:
           context: .
           file: Worker.Dockerfile
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/worker:prod
-  deploy: 
+  deploy:
     runs-on: ubuntu-latest
+    needs: build
     name: Deploy
     steps:
       - name: Deploy on production server
