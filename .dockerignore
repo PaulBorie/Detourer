@@ -54,5 +54,6 @@ build.sh
 update.sh
 minio/
 logo/
+diagram/
 LICENSE
 .secrets

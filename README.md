@@ -4,7 +4,19 @@
 
 You can visit the live project [here](https://detourer.io).
 
-## Architecture
+## System Design
+
+![Alt text](diagram/Detourer.drawio.png)
+
+
+Since the AI jobs processing the images to remove their background are long running tasks (5 to 10 seconds), we have to run them **asynchronously**. To achieve that I used a Redis instance that will be used as a queue to store the AI Jobs submitted by the Laravel Web App. The Web App will return return a `200` http code when a user upload an image and a Job will be queued. A `mysql` db is also used to track the jobs (failed jobs, job status).
+Once the Job is sumbitted, a Worker service is listening to the queue and start processing it **asynchronously**. Once the AI job is done, the `Worker` service broadcasts an Event with the image url and the event is notified to the user thanks to the `Websocket` server.   
+
+I also wanted to build an app that can easily scale, especially an app that can **scale horizontally**. To achieve that I decoupled the storage layer from the Web app and from the Worker service. I used a separate Minio Cloud Storage service for that. Thanks to that the Worker Service and the Web app are **stateless** and can be replicated as needed and can the instances can live in separate servers.
+ 
+In the production server there are 4 `Workers services` and the AI tasks are distributed equally in a round robbin manner among the different workers.
+
+
 
 ## Dev locally
 
