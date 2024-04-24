@@ -115,7 +115,6 @@ act -j build
 
 - SEO optimization with some Laravel Package maybe ? 
 - Disable Session cookie for unauthenticated users (the app does not track user) so they are useless. Then it will allow to **cache** the home page at nginx level or Cache it using a CDN. It will improve home page response time which is good for SEO. 
-- Architecture Schema. 
 - Video support
 - Create Kubernetes manifests and a Helm package to allow autoscaling horizontally in a cluster of nodes or maybe use Swarm ? 
 
