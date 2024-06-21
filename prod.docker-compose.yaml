@@ -101,6 +101,7 @@ services:
   web:
     image: paulborielabs/webserver:prod
     container_name: web
+    restart: always
     volumes:
       - nginx_secrets:/etc/letsencrypt # to save certs accross restart
       - ./nginx-templates/prod:/etc/nginx/templates #copy prod nginx conf templates here
