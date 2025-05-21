@@ -91,7 +91,7 @@ RUN apt-get update; \
     opcache \
     pdo_mysql \
     zip \
-    intl \ 
+    intl \
     redis \
     && apt-get -y autoremove \
     && apt-get clean \
@@ -124,8 +124,7 @@ RUN composer install \
     --no-interaction \
     --no-autoloader \
     --no-ansi \
-    --no-scripts \
-    --audit
+    --no-scripts
 
 COPY --chown=${USER}:${USER} . .
 COPY --chown=${USER}:${USER} --from=build ${ROOT}/public public

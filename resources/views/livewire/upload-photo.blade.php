@@ -1,8 +1,8 @@
 <div x-data="dropzone()"
-@task:created.window="openTab = 2" 
-x-on:livewire-upload-start="taskProcessing = true" 
+@task:created.window="openTab = 2"
+x-on:livewire-upload-start="taskProcessing = true"
 @upload-start.window="taskProcessing = true"
-@task:completed.window="taskProcessing = false; taskCompleted = true" 
+@task:completed.window="taskProcessing = false; taskCompleted = true"
 @notify.window="let message = $event.detail[0]; if (message.type === 'error') { fileSelected = false; taskProcessing = false; taskCompleted = false; Echo.leave(`rembgtask.${window.taskUuid}`); }"
  class="py-6 px-4 sm:px-6 md:px-8 grow">
     <div class="max-w-5xl mx-auto">
@@ -27,17 +27,17 @@ x-on:livewire-upload-start="taskProcessing = true"
                 <!-- start upload image -->
                 <label for="dropzone-file">
                     <div class="relative">
-                        <div 
+                        <div
                         @dragenter.prevent.document="onDragenter($event)"
                         @dragleave.prevent="onDragleave($event)"
                         @dragover.prevent="onDragover($event)"
-                        @drop.prevent="onDrop" 
+                        @drop.prevent="onDrop"
                         id="dropzone" class= "bg-noir-500 overflow-hidden w-full h-56 sm:h-96 transition duration-200 ease-in-out hover:cursor-pointer rounded-3xl shadow-3xl flex justify-center items-center">
                             <!-- The cancel task button-->
                             <button x-cloak x-show="fileSelected" x-on:click="fileSelected = false; taskProcessing = false; taskCompleted = false; Echo.leave(`rembgtask.${window.taskUuid}`);" class="z-50 m-[6px] absolute top-0 right-1 rounded-full h-7 w-7 bg-noir-900 hover:bg-gray-500  transition duration-200 ease-in-out  flex justify-center items-center text-white" type="button" wire:click="cancelRemoveBackgroundTask">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-5 h-5 text-white">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                                </svg>       
+                                </svg>
                             </button>
                             <!-- end cancel task button-->
                             <!-- The processing task spinner -->
@@ -90,18 +90,18 @@ x-on:livewire-upload-start="taskProcessing = true"
                                 <div class="flex flex-row  gap-x-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                                    </svg>                      
+                                    </svg>
                                     <p>Download</p>
                                 </div>
                             </button>
                         </div>
                     @endif
                     <!-- end download button-->
-                    <input x-bind:disabled="fileSelected" x-on:change="fileSelected = true" class="hidden" id="dropzone-file" type="file" wire:model="image" enctype="multipart/form-data"></input>   
+                    <input x-bind:disabled="fileSelected" x-on:change="fileSelected = true" class="hidden" id="dropzone-file" type="file" wire:model="image" enctype="multipart/form-data"></input>
                 </label>
-                <!-- end upload image -->     
+                <!-- end upload image -->
             </div>
-        </div> 
+        </div>
         <x-notification />
     </div>
     @script
@@ -150,7 +150,7 @@ x-on:livewire-upload-start="taskProcessing = true"
                             $wire.dispatch('removeBackgroundTaskFailed',  { exceptionMessage: "Make sure it has an appropriate image format (jpeg,png,jpg,webp,bmp) and that it does not exceed 50mo.", exceptionTitle: "Image upload Failure" });
                             return;
                         }
-                        
+
                         window.dispatchEvent(new Event('upload-start'));
                         this.fileSelected = true
                         $wire.upload('image', file, () => {
@@ -165,36 +165,38 @@ x-on:livewire-upload-start="taskProcessing = true"
                         })
 
                     }
-                    
+
                 },
                 onDragenter() {
                     if (event.relatedTarget && event.relatedTarget.id !== 'dropzone') {
                         return
-                    }   
-                    this.isDragging = true  
+                    }
+                    this.isDragging = true
                 },
                 onDragleave() {
                     if (dropzone.contains(event.relatedTarget) ) {
                         return
                     }
                     this.isDragging = false
-                    
-                },               
+
+                },
                 onDragover() {
                     this.isDragging = true
                 },
             });
         });
-        
+
         $wire.on('task:created', (task) => {
             const taskUuid = task[0];
             window.taskUuid = taskUuid;
             Echo.channel(`rembgtask.${taskUuid}`).listen('RemoveBackgroundTaskCompleted', (e) => {
+                console.log('event received from webscoket received')
                 $wire.dispatch('removeBackgroundTaskCompleted');
                 const taskCompletedEvent = new Event('task:completed');
                 window.dispatchEvent(taskCompletedEvent);
             })
             .listen('RemoveBackgroundTaskFailed', (exception) => {
+                console.log('event received from webscoket received: failure')
                 exceptionMessage = exception.exceptionMessage;
                 exceptionTitle = exception.exceptionTitle;
                 $wire.dispatch('removeBackgroundTaskFailed',  { exceptionMessage: exceptionMessage, exceptionTitle: exceptionTitle });

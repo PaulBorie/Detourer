@@ -5,7 +5,7 @@ on:
     types: [created]
 jobs:
   build:
-    name: Build
+    name: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -65,7 +65,7 @@ jobs:
             cd /home/${{ secrets.SSH_USER }}/Detourer
             docker compose --env-file /var/lib/rembg/prod.env -f prod.docker-compose.yaml up -d
 
-        
-          
+
+
 
 
